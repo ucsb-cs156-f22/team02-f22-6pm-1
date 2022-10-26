@@ -22,6 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-public class UCSBOrganizationsController {
+@Api(description = "UCSBOrganizations")
+@RequestMapping("/api/ucsborganizations")
+@RestController
+@Slf4j
+public class UCSBOrganizationsController extends ApiController {
     
+    @Autowired
+    UCSBOrganizationsRepository ucsbOrganizationsRepository; 
+
 }
