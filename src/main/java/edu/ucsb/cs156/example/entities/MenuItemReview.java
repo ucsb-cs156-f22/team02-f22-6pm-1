@@ -1,8 +1,6 @@
 package edu.ucsb.cs156.example.entities;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
