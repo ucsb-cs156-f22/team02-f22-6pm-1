@@ -31,4 +31,62 @@ public class UCSBOrganizationsController extends ApiController {
     @Autowired
     UCSBOrganizationsRepository ucsbOrganizationsRepository; 
 
+    @ApiOperation(value = "List all ucsb organizations")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public Iterable<UCSBOrganizations> allCommonss() {
+        Iterable<UCSBOrganizations> org = ucsbOrganizationsRepository.findAll();
+        return org;
+    }
+
+    @ApiOperation(value = "Get a single organization")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public UCSBOrganizations getById(
+            @ApiParam("code") @RequestParam String code) {
+        UCSBOrganizations org = ucsbOrganizationsRepository.findById(code)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganizations.class, code));
+
+        return org;
+    }
+      
+
+    @ApiOperation(value = "Create a new org")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/post")
+    public UCSBDiningCommons postCommons(
+        @ApiParam("orgCode") @RequestParam String orgCode,
+        @ApiParam("orgTranslationShort") @RequestParam String orgTranslationShort,
+        @ApiParam("orgTranslation") @RequestParam String orgTranslation,
+        @ApiParam("inactive") @RequestParam boolean inactive
+        )
+        {
+
+        UCSBOrganizations org = new UCSBOrganizations();
+        org.setOrgCode(orgCode);
+        org.setOrgTranslationShort(orgTranslationShort);
+        org.setOrgTranslation(orgTranslation);
+        org.setInactive(inactive);
+        
+
+        UCSBOrganizations savedOrg = ucsbOrganizationsRepository.save(org);
+
+        return savedOrg;
+    }
+
+    @ApiOperation(value = "Delete a UCSBOrganization")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteUCSBOrganization(
+            @ApiParam("orgCode") @RequestParam Long orgCode) {
+        UCSBOrganizations ucsbOrganizations = ucsbOrganizationsRepository.findById(orgCode)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganizations.class, id));
+
+        ucsbOrganizationsRepository.delete(ucsbOrganizations);
+        return genericMessage("UCSBDate with id %s deleted".formatted(orgCode));
+    }
+
+
+
+
 }
