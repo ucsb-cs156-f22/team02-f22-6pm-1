@@ -165,18 +165,16 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
     @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
-    public void an_admin_user_can_post_a_new_ucsbdate() throws Exception {
+    public void an_admin_user_can_post_a_new_ucsborganization() throws Exception {
             // arrange
-
-            LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
-
-            UCSBDate ucsbDate1 = UCSBDate.builder()
-                            .name("firstDayOfClasses")
-                            .quarterYYYYQ("20222")
-                            .localDateTime(ldt1)
+            UCSBOrganizations ucsbOrg1 = UCSBOrganizations.builder()
+                            .orgCode("LBJ")
+                            .orgTranslationShort("LeBr Ja")
+                            .orgTranslation("LeBron James")
+                            .inactive(false)
                             .build();
 
-            when(ucsbDateRepository.save(eq(ucsbDate1))).thenReturn(ucsbDate1);
+            when(ucsbOrganizationsRepository.save(eq(ucsbOrg1))).thenReturn(ucsbOrg1);
 
             // act
             MvcResult response = mockMvc.perform(
