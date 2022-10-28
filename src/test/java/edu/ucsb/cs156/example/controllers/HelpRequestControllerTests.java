@@ -116,14 +116,14 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
 
                 // arrange
-                LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt = LocalDateTime.parse("2022-10-13T00:00:00");
 
                 HelpRequest helpRequest = HelpRequest.builder()
-                                .requesterEmail("skylartwinig@ucsb.edu")
-                                .teamId("2")
+                                .requesterEmail("clown@ucsb.edu")
+                                .teamId("f22-6pm-4")
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt)
-                                .explanation("Mutation Test")
+                                .explanation("thats how the cookie crumbles")
                                 .solved(false)
                                 .build();
 
@@ -166,25 +166,25 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         public void logged_in_user_can_get_all_helprequests() throws Exception {
 
                 // arrange
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-01T00:00:00");
 
                 HelpRequest helpRequest1 = HelpRequest.builder()
-                                .requesterEmail("John Doe")
-                                .teamId("1")
+                                .requesterEmail("jesus@ucsb.edu")
+                                .teamId("f22-5pm-3")
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
-                                .explanation("hi")
+                                .explanation("I need help")
                                 .solved(true)
                                 .build();
 
-                LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
+                LocalDateTime ldt2 = LocalDateTime.parse("2022-01-01T00:00:00");
 
                 HelpRequest helpRequest2 = HelpRequest.builder()
-                                .requesterEmail("Jenny Doe")
-                                .teamId("2")
+                                .requesterEmail("god@ucsb.edu")
+                                .teamId("f22-5pm-3")
                                 .tableOrBreakoutRoom("breakout room")
                                 .requestTime(ldt2)
-                                .explanation("bye")
+                                .explanation("me too")
                                 .solved(false)
                                 .build();
 
@@ -210,14 +210,14 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         public void an_admin_user_can_post_a_new_helprequest() throws Exception {
                 // arrange
 
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-10-01T00:00:00");
 
                 HelpRequest helpRequest1 = HelpRequest.builder()
-                                .requesterEmail("Bob the builder")
-                                .teamId("4")
+                                .requesterEmail("pconrad@ucsb.edu")
+                                .teamId("f22-5pm-1")
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
-                                .explanation("build")
+                                .explanation("Im the teacher bro")
                                 .solved(true)
                                 .build();
 
@@ -225,7 +225,7 @@ public class HelpRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/helprequest/post?requesterEmail=Bob the builder&teamId=4&tableOrBreakoutRoom=table&requestTime=2022-01-03T00:00:00&explanation=build&solved=true")
+                                post("/api/helprequest/post?requesterEmail=pconrad@ucsb.edu&teamId=f22-5pm-1&tableOrBreakoutRoom=table&requestTime=2022-10-01T00:00:00&explanation=Im the teacher bro&solved=true")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -241,14 +241,14 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         public void admin_can_delete_a_helprequest() throws Exception {
                 // arrange
 
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-10-31T00:00:00");
 
                 HelpRequest helpRequest1 = HelpRequest.builder()
-                                .requesterEmail("Thomas the train")
-                                .teamId("17")
+                                .requesterEmail("cghaucho@ucsb.edu")
+                                .teamId("f22-7pm-1")
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
-                                .explanation("train")
+                                .explanation("ey Im a gaucho")
                                 .solved(false)
                                 .build();
 
@@ -293,24 +293,24 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         public void admin_can_edit_an_existing_helprequest() throws Exception {
                 // arrange
 
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
-                LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-10-25T00:00:00");
+                LocalDateTime ldt2 = LocalDateTime.parse("2022-10-26T00:00:00");
 
                 HelpRequest helpRequestOrig = HelpRequest.builder()
-                                .requesterEmail("John Doe")
-                                .teamId("1")
+                                .requesterEmail("ethanmader@ucsb.edu")
+                                .teamId("f22-6pm-1")
                                 .tableOrBreakoutRoom("table")
                                 .requestTime(ldt1)
-                                .explanation("hi")
+                                .explanation("hey")
                                 .solved(true)
                                 .build();
 
                 HelpRequest helpRequestEdited = HelpRequest.builder()
-                                .requesterEmail("Jenny Doe")
-                                .teamId("2")
+                                .requesterEmail("saahiljoshi@ucsb.edu")
+                                .teamId("f22-6pm-2")
                                 .tableOrBreakoutRoom("breakout room")
                                 .requestTime(ldt2)
-                                .explanation("bye")
+                                .explanation("ayoo")
                                 .solved(false)
                                 .build();
 
@@ -340,14 +340,14 @@ public class HelpRequestControllerTests extends ControllerTestCase {
         public void admin_cannot_edit_helprequest_that_does_not_exist() throws Exception {
                 // arrange
 
-                LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
+                LocalDateTime ldt1 = LocalDateTime.parse("2022-10-27T00:00:00");
 
                 HelpRequest helpRequestEdited = HelpRequest.builder()
-                                .requesterEmail("shrek")
-                                .teamId("c")
+                                .requesterEmail("yourmom@ucsb.edu")
+                                .teamId("f22-6pm-1")
                                 .tableOrBreakoutRoom("breakout room")
                                 .requestTime(ldt1)
-                                .explanation("ogre")
+                                .explanation("just dw")
                                 .solved(true)
                                 .build();
 
