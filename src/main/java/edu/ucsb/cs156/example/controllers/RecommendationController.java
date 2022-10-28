@@ -27,7 +27,7 @@ import javax.validation.Valid;
 
 
 @Api(description = "Recommendation")
-@RequestMapping("/api/recommendation")
+@RequestMapping("/api/Recommendation")
 @RestController
 @Slf4j
 
