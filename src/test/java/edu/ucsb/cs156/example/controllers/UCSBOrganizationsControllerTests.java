@@ -93,7 +93,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
                             .inactive(false)
                             .build();
 
-            when(ucsbOrganizationsRepository.findById(eq(7L))).thenReturn(Optional.of(ucsbOrg));
+            when(ucsbOrganizationsRepository.findById("THT")).thenReturn(Optional.of(ucsbOrg));
 
             // act
             MvcResult response = mockMvc.perform(get("/api/ucsborganizations?id=7"))
@@ -101,7 +101,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
             // assert
 
-            verify(ucsbOrganizationsRepository, times(1)).findById(eq(7L));
+            verify(ucsbOrganizationsRepository, times(1)).findById("THT");
             String expectedJson = mapper.writeValueAsString(ucsbOrg);
             String responseString = response.getResponse().getContentAsString();
             assertEquals(expectedJson, responseString);
@@ -113,15 +113,15 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
             // arrange
 
-            when(ucsbOrganizationsRepository.findById("")).thenReturn(Optional.empty());
+            when(ucsbOrganizationsRepository.findById("LBJ")).thenReturn(Optional.empty());
 
             // act
-            MvcResult response = mockMvc.perform(get("/api/ucsborganizations?id=7"))
+            MvcResult response = mockMvc.perform(get("/api/ucsborganizations?id=LBJ"))
                             .andExpect(status().isNotFound()).andReturn();
 
             // assert
 
-            verify(ucsbOrganizationsRepository, times(1)).findById(eq(7L));
+            verify(ucsbOrganizationsRepository, times(1)).findById("LBJ");
             Map<String, Object> json = responseToJson(response);
             assertEquals("EntityNotFoundException", json.get("type"));
             assertEquals("UCSBOrganization with id 7 not found", json.get("message"));
@@ -231,7 +231,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
                             .andExpect(status().isNotFound()).andReturn();
 
             // assert
-            verify(ucsbOrganizationsRepository, times(1)).findById("lbj"));
+            verify(ucsbOrganizationsRepository, times(1)).findById("lbj");
             Map<String, Object> json = responseToJson(response);
             assertEquals("UCSBOrganization with id lbj not found", json.get("message"));
     }
@@ -291,7 +291,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
 
             // act
             MvcResult response = mockMvc.perform(
-                            put("/api/ucsborganizations?id=67")
+                            put("/api/ucsborganizations?id=LBJ")
                                             .contentType(MediaType.APPLICATION_JSON)
                                             .characterEncoding("utf-8")
                                             .content(requestBody)
@@ -299,7 +299,7 @@ public class UCSBOrganizationsControllerTests extends ControllerTestCase {
                             .andExpect(status().isNotFound()).andReturn();
 
             // assert
-            verify(ucsbOrganizationsRepository, times(1)).findById(67L);
+            verify(ucsbOrganizationsRepository, times(1)).findById("LBJ");
             Map<String, Object> json = responseToJson(response);
             assertEquals("UCSBDate with id 67 not found", json.get("message"));
 
