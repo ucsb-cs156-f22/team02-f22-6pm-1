@@ -54,7 +54,7 @@ public class UCSBOrganizationsController extends ApiController {
     @ApiOperation(value = "Create a new org")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
-    public UCSBDiningCommons postCommons(
+    public UCSBOrganizations postOrganizations(
         @ApiParam("orgCode") @RequestParam String orgCode,
         @ApiParam("orgTranslationShort") @RequestParam String orgTranslationShort,
         @ApiParam("orgTranslation") @RequestParam String orgTranslation,
@@ -86,7 +86,26 @@ public class UCSBOrganizationsController extends ApiController {
         return genericMessage("UCSBDate with id %s deleted".formatted(orgCode));
     }
 
+    @ApiOperation(value = "Update a single organization")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public UCSBOrganizations updateOrganizations(
+            @ApiParam("orgCode") @RequestParam String orgCode,
+            @RequestBody @Valid UCSBOrganizations incoming) {
 
+        UCSBOrganizations org = ucsbOrganizationsRepository.findById(orgCode)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganizations.class, orgCode));
+
+
+        org.setOrgCode(incoming.getOrgCode());
+        org.setOrgTranslationShort(incoming.getOrgTranslationShort());
+        org.setOrgTranslation(incoming.getOrgTranslation());
+        org.setInactive(incoming.getInactive());
+
+        ucsbOrganizationsRepository.save(org);
+
+        return org;
+    }
 
 
 }
