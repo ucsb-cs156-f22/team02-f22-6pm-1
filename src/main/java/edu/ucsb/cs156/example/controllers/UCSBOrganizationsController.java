@@ -34,7 +34,7 @@ public class UCSBOrganizationsController extends ApiController {
     @ApiOperation(value = "List all ucsb organizations")
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("")
-    public Iterable<UCSBOrganizations> allCommonss() {
+    public Iterable<UCSBOrganizations> allOrganizations() {
         Iterable<UCSBOrganizations> org = ucsbOrganizationsRepository.findAll();
         return org;
     }
@@ -83,7 +83,7 @@ public class UCSBOrganizationsController extends ApiController {
                 .orElseThrow(() -> new EntityNotFoundException(UCSBOrganizations.class, id));
 
         ucsbOrganizationsRepository.delete(ucsbOrganizations);
-        return genericMessage("UCSBDate with id %s deleted".formatted(orgCode));
+        return genericMessage("UCSBOrganizations with id %s deleted".formatted(orgCode));
     }
 
     @ApiOperation(value = "Update a single organization")
