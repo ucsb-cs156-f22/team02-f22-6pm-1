@@ -110,7 +110,7 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
 
         // arrange
         
-        when(ucsbDiningCommonsMenuItemRepository.findById(eq(27L)));
+        when(ucsbDiningCommonsMenuItemRepository.findById(eq(27L))).thenReturn(Optional.empty());
 
         // act
         MvcResult response = mockMvc.perform(get("/api/ucsbdiningcommonsmenuitem?id=27"))
@@ -284,11 +284,11 @@ public class UCSBDiningCommonsMenuItemControllerTests extends ControllerTestCase
 
         String requestBody = mapper.writeValueAsString(editedItem);
 
-        when(ucsbDiningCommonsMenuItemRepository.findById(eq(1L)));
+        when(ucsbDiningCommonsMenuItemRepository.findById(eq(1L))).thenReturn(Optional.empty());
 
         // act
         MvcResult response = mockMvc.perform(
-                        put("/api/ucsbdiningcommonsmenuitems?id=1")
+                        put("/api/ucsbdiningcommonsmenuitem?id=1")
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .characterEncoding("utf-8")
                                         .content(requestBody)
