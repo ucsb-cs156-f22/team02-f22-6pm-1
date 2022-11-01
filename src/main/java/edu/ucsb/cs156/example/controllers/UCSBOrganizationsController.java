@@ -33,7 +33,7 @@ public class UCSBOrganizationsController extends ApiController {
 
     @ApiOperation(value = "List all ucsb organizations")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("")
+    @GetMapping("/all")
     public Iterable<UCSBOrganizations> allOrganizations() {
         Iterable<UCSBOrganizations> org = ucsbOrganizationsRepository.findAll();
         return org;
@@ -78,12 +78,12 @@ public class UCSBOrganizationsController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteUCSBOrganization(
-            @ApiParam("orgCode") @RequestParam Long orgCode) {
+            @ApiParam("orgCode") @RequestParam String orgCode) {
         UCSBOrganizations ucsbOrganizations = ucsbOrganizationsRepository.findById(orgCode)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganizations.class, id));
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganizations.class, orgCode));
 
         ucsbOrganizationsRepository.delete(ucsbOrganizations);
-        return genericMessage("UCSBOrganizations with id %s deleted".formatted(orgCode));
+        return genericMessage("UCSBOrganizations with orgCode %s deleted".formatted(orgCode));
     }
 
     @ApiOperation(value = "Update a single organization")
