@@ -1,6 +1,7 @@
 # STARTER-team02
 
 * <https://team02-f22-6pm-1.herokuapp.com/>
+* <https://team02-f22-6pm-1-qa.herokuapp.com/>
 
 # Setup before running application
 
