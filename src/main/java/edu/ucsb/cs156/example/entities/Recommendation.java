@@ -16,9 +16,12 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "recommendation")
+@Entity(name = "recommendations")
 public class Recommendation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;  
+    
     private String requesterEmail;
     private String professorEmail;
     private String explanation;

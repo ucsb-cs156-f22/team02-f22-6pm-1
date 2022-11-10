@@ -134,7 +134,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
 
     @WithMockUser(roles = { "USER" })
     @Test
-    public void logged_in_user_can_get_all_ucsbdates() throws Exception {
+    public void logged_in_user_can_get_all_recommendation() throws Exception {
 
             // arrange
             LocalDateTime request_date = LocalDateTime.parse("2022-04-20T00:00:00");
@@ -180,7 +180,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
 
     @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
-    public void an_admin_user_can_post_a_new_ucsbdate() throws Exception {
+    public void an_admin_user_can_post_a_new_recommendation() throws Exception {
             // arrange
 
             LocalDateTime request_date = LocalDateTime.parse("2022-04-20T00:00:00");
@@ -192,14 +192,14 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("BS/MS program")
                                 .dateRequested(request_date)
                                 .dateNeeded(needed_date)
-                                .done(false)
+                                .done(true)
                                 .build();
 
             when(recommendRepository.save(eq(recommend1))).thenReturn(recommend1);
 
             // act
             MvcResult response = mockMvc.perform(
-                            post("/api/Recommendation/post?requesterEmail=cgaucho@ucsb.edu&professorEmail=phtcon@ucsb.edu&explanation=BS/MS program&dateRequested=2022-04-20T00:00:00&dateNeeded=2022-05-01T00:00:00&done=false")
+                            post("/api/Recommendation/post?requesterEmail=cgaucho@ucsb.edu&professorEmail=phtcon@ucsb.edu&explanation=BS/MS program&dateRequested=2022-04-20T00:00:00&dateNeeded=2022-05-01T00:00:00&done=true")
                                             .with(csrf()))
                             .andExpect(status().isOk()).andReturn();
 
@@ -212,7 +212,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
 
     @WithMockUser(roles = { "ADMIN", "USER" })
     @Test
-    public void admin_can_delete_a_date() throws Exception {
+    public void admin_can_delete_a_recommendation() throws Exception {
             // arrange
 
             LocalDateTime request_date = LocalDateTime.parse("2022-04-20T00:00:00");
@@ -224,7 +224,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("BS/MS program")
                                 .dateRequested(request_date)
                                 .dateNeeded(needed_date)
-                                .done(false)
+                                .done(true)
                                 .build();
 
             when(recommendRepository.findById(eq(15L))).thenReturn(Optional.of(recommend1));
@@ -289,7 +289,7 @@ public class RecommendationControllerTests extends ControllerTestCase {
                                 .explanation("PhD CS Stanford")
                                 .dateRequested(request_date2)
                                 .dateNeeded(needed_date2)
-                                .done(false)
+                                .done(true)
                                 .build();
 
             String requestBody = mapper.writeValueAsString(recommendEdited);
